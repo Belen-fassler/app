@@ -1,0 +1,55 @@
+/* styles.css */
+
+ion-header {
+    background-color: #3498db; /* Color de fondo para el encabezado */
+    color: #ffffff; /* Color del texto en el encabezado */
+  }
+  
+  ion-toolbar {
+    padding: 0 16px; /* Añadir relleno al toolbar */
+  }
+  
+  ion-buttons {
+    color: #ffffff; /* Color de los botones en el encabezado */
+  }
+  
+  ion-content {
+    padding: 16px; /* Añadir relleno al contenido */
+  }
+  
+  ion-card {
+    margin-bottom: 16px; /* Espacio entre las tarjetas */
+  }
+  
+  ion-card-header {
+    background-color: #3498db; /* Color de fondo para el encabezado de la tarjeta */
+    color: #ffffff; /* Color del texto en el encabezado de la tarjeta */
+  }
+  
+  ion-card-title {
+    font-size: 1.5em; /* Tamaño del título de la tarjeta */
+  }
+  
+  ion-card-content {
+    padding: 16px; /* Añadir relleno al contenido de la tarjeta */
+  }
+  
+  ion-label {
+    display: block;
+    margin-bottom: 8px; /* Espacio entre las etiquetas */
+  }
+  
+  ion-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px; /* Espacio entre los campos de entrada */
+    border: 1px solid #ddd; /* Borde de los campos de entrada */
+  }
+  
+  ion-button {
+    margin-top: 16px; /* Espacio sobre los botones */
+    width: 100%;
+  }
+  
+  /* Otras personalizaciones según sea necesario */
+  

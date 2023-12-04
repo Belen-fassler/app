@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button>Volver</ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registro</ion-card-title>
+    </ion-card-header>
+  <ion-card-content>
+
+    <!-------------FORMULARIO------------>
+  <form [formGroup] = "formularioRegistro">
+
+<!-----------CORREO--------------->
+    <ion-item>
+      <ion-label position="flotating">Correo <ion-text color="danger">(Requerido)</ion-text></ion-label>
+      <ion-input formControlName = "correo" type="email"></ion-input>
+    </ion-item>
+    <!-----------FIN CORREO--------------->
+
+    <!-----------USUARIO--------------->
+    <ion-item>
+      <ion-label position="flotating">Usuario <ion-text color="danger">(Requerido)</ion-text></ion-label>
+      <ion-input formControlName = "nombre"></ion-input>
+    </ion-item>
+    <!-----------FIN USUARIO--------------->
+
+    <!-----------FECHA NACIMIENTO--------------->
+    <ion-item>
+      <ion-label position="floating">Fecha de Nacimiento</ion-label>
+      <ion-input formControlName = "fecha" type="date"></ion-input>
+    </ion-item>
+    <!-----------FIN FECHA NACIMIENTO--------------->
+
+    <!-----------CONTRASEÑA--------------->
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input formControlName = "password" type="password"></ion-input>
+    </ion-item>
+    <!-----------FIN CONTRASEÑA--------------->
+
+    <!-----------VALIDACION CONTRASEÑA--------------->
+    <ion-item>
+      <ion-label>Confirmar Password</ion-label>
+      <ion-input formControlName = "confirmar" type="password"></ion-input>
+    </ion-item>
+    <!-----------FIN VALIDACION CONTRASEÑA--------------->
+
+  </form>
+    <!-------------FIN FORMULARIO------------>
+
+    <!----------BOTON GUARDADO------------->
+    <ion-button (click) = "guardar()">Registrarse</ion-button>
+    <!----------FIN BOTON GUARDADO------------->
+
+  </ion-card-content>
+</ion-card>
+</ion-content>
