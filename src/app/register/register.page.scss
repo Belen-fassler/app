@@ -1,0 +1,46 @@
+ion-header {
+    background-color: #3880ff; /* Color de fondo del encabezado */
+    color: #fff; /* Color del texto en el encabezado */
+  }
+  
+  ion-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura del 100% de la ventana */
+    background-color: #f4f4f4; /* Color de fondo del contenido */
+  }
+  
+  ion-card {
+    width: 80%; /* Ancho del 80% del contenedor padre */
+  }
+  
+  ion-card-title {
+    text-align: center;
+  }
+  
+  ion-item {
+    margin-bottom: 16px; /* Margen inferior para separar los elementos del formulario */
+  }
+  
+  ion-button {
+    width: 100%; /* Ancho del 100% del contenedor padre */
+    margin-top: 16px; /* Margen superior para separar el botón del formulario */
+  }
+  
+  /* Estilo para los mensajes de error en los campos requeridos */
+  ion-text[color="danger"] {
+    font-size: 0.8em;
+    font-style: italic;
+  }
+  
+  /* Ajustes para la apariencia del input */
+  ion-input {
+    width: 100%;
+  }
+  
+  /* Ajuste de la apariencia del ion-back-button */
+  ion-back-button {
+    color: #fff; /* Color del botón de retroceso en el encabezado */
+  }
+  

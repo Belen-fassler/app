@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, NavController } from '@ionic/angular';
+import { AutheticationService } from '../authetication.service';
 
 @Component({
   selector: 'app-register',
@@ -11,9 +12,9 @@ export class RegisterPage implements OnInit {
 
   formularioRegistro: FormGroup;
 
-  constructor(public fb:FormBuilder, public alertCtrl: AlertController, public navCtrl: NavController) {
+  constructor(public fb:FormBuilder, public alertCtrl: AlertController, public navCtrl: NavController, private auth:AutheticationService) {
     this.formularioRegistro = this.fb.group({
-      'correo': new FormControl("",Validators.email),
+      'email': new FormControl("",Validators.email),
       'nombre': new FormControl("",Validators.required),
       'fecha':new FormControl("",Validators.required ),
       'password': new FormControl("",Validators.required),
@@ -36,6 +37,7 @@ export class RegisterPage implements OnInit {
   
   async guardar() {
     var formulario = this.formularioRegistro.value;
+    console.log(formulario.fecha);
     var birddate : String = formulario.fecha;
     var yearString : String = birddate.split("-")[0];
     var year : Number = +yearString;
@@ -74,7 +76,17 @@ export class RegisterPage implements OnInit {
       password:formulario.password
     }
 
-    localStorage.setItem('usuario', JSON.stringify(usuario));
+    //localStorage.setItem('usuario', JSON.stringify(usuario));
+
+    this.auth.registerUser(formulario.email, formulario.password).then(response =>{
+       response.user?.updateProfile({
+      //   //usuario
+        displayName:formulario.nombre,
+      //   //fecha
+        photoURL: formulario.fecha
+      })
+    }).catch(error => console.log(error))
+
     this.navCtrl.navigateRoot("login");
   }
 

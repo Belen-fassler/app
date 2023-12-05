@@ -1,6 +1,8 @@
 import { Component , OnInit} from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
+import { AutheticationService } from '../authetication.service';
+
 
 
 @Component({
@@ -11,15 +13,16 @@ import { NavController } from '@ionic/angular';
 export class HomePage {
 
   usuario: any;
-  correo:any;
+  email:any;
   nuevoNombre: string = '';
+  nuevoEmail: string = '';
   nuevaContrasena: string = '';
   nuevaFechaNacimiento: string = '';
   editMode = false; // Add this line
 
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController) {
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, private auth:AutheticationService) {
     this.nuevoNombre = ''; 
-    this.correo='';
+    this.nuevoEmail='';
     this.nuevaContrasena = ''; 
     this.nuevaFechaNacimiento = ''; 
   }
@@ -31,15 +34,26 @@ export class HomePage {
   cancelarEdicion() {
     this.editMode = false;
   }
+
   ngOnInit() {
-    // Aquí puedes obtener la información del usuario desde el servicio o localStorage
-    this.usuario = {
-      nombre: 'John Doe',
-      correo:'john@gmail.com',
-      password: 'qwe',
-      fecha: '01/01/1990',  // Ajusta la fecha según tus necesidades
-      
-    };
+   
+    this.auth.getAuthState().subscribe(user => {
+      if (user) {
+        // El usuario está logueado, usa los datos del usuario aquí
+        console.log(user);
+        this.usuario={
+          nombre:user.displayName,
+          email: user.email,
+          password: '',
+          fecha: user.photoURL,
+
+        }
+      } else {
+        // No hay usuario logueado
+      }
+    });
+
+    
   }
 
   async guardarCambios() {
@@ -53,6 +67,10 @@ export class HomePage {
       this.usuario.password = this.nuevaContrasena;
     }
 
+    if (this.nuevoEmail) {
+      this.usuario.password = this.nuevoEmail;
+    }
+
     if (this.nuevaFechaNacimiento) {
       this.usuario.fecha = this.nuevaFechaNacimiento;
     }
@@ -64,29 +82,45 @@ export class HomePage {
       buttons: ['Aceptar'],
     });
 
+    this.auth.changeUser(this.usuario.nombre,this.usuario.fecha,this.usuario.email,this.usuario.password).then(response=>{
+      console.log(response)
+      localStorage.setItem("userData",JSON.stringify(response));
+    }).catch(error=> console.log(error))
+
     await alert.present();
   }
   
   //Variable utilizada para mostrar la alerta y su opción
   public alertButtons = ['OK'];
 
-  //Función llamada desde el HTML, que permite cambiar el estado de ingresado
+  
   //Para que el usuario deba loguearse nuevamente devolviendose también
   //al login
   salir(){
-    //Cambia el estado "ingresado" de localstorage a "false"
-    localStorage.setItem("ingresado","false");
-    //redirige la aplicación a "login"
-    this.navCtrl.navigateRoot("login");
+    this.auth.singOut().then(response=>{
+
+      localStorage.removeItem("userData")
+      //Cambia el estado "ingresado" de localstorage a "false"
+      localStorage.setItem("ingresado","false");
+      //redirige la aplicación a "login"
+      this.navCtrl.navigateRoot("login");
+    }).catch(err=>console.log(err))
+
   }
 
   eliminarCuenta() {
+
     // Puedes agregar lógica para confirmar la eliminación antes de proceder
     const confirmacion = window.confirm('¿Estás seguro de que quieres eliminar tu cuenta?');
 
     if (confirmacion) {
       // Elimina la cuenta (puedes agregar tu lógica de eliminación aquí)
-
+      this.auth.deleteUser().then(() => {
+        console.log('Cuenta eliminada con éxito');
+        // Aquí puedes redirigir al usuario o actualizar la UI
+      }).catch(error => {
+        console.error('Error al eliminar la cuenta:', error);
+      });
       // Luego, redirige al usuario a la pantalla de login
       localStorage.setItem("ingresado", "false");
       this.navCtrl.navigateRoot("login");

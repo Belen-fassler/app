@@ -18,7 +18,7 @@
   </ion-card-header>
   <ion-card-content>
     <ion-label>Nombre: {{ usuario?.nombre }}</ion-label>
-    <ion-label>Correo: {{ usuario?.correo }}</ion-label>
+    <ion-label>Correo: {{ usuario?.email }}</ion-label>
     <ion-label>Contraseña: {{ usuario?.password }}</ion-label>
     <ion-label>Fecha de nacimiento: {{ usuario?.fecha }}</ion-label>
     <!-- Puedes agregar más campos según la información que tengas -->
@@ -40,7 +40,7 @@
 
     <ion-item>
       <ion-label position="stacked">Correo</ion-label>
-      <ion-input [(ngModel)]="usuario.correo"></ion-input>
+      <ion-input [(ngModel)]="usuario.email"></ion-input>
     </ion-item>
 
     <ion-item>
